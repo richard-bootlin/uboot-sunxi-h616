@@ -218,6 +218,14 @@ static int write_page(const struct image_info *info, uint8_t *buffer,
 		}
 
 		memset(ecc, 0, eccbytes);
+
+		if (info->h6) {
+			/* BBM taken from vendor code: FF 00 03 01 */
+			buffer[info->ecc_step_size + 1] = 0;
+			buffer[info->ecc_step_size + 2] = 3; // NAND_VERSION_0
+			buffer[info->ecc_step_size + 3] = 1; // NAND_VERSION_1
+		}
+
 		swap_bits(buffer, info->ecc_step_size + 4);
 		encode_bch(bch, buffer, info->ecc_step_size + 4, ecc);
 		swap_bits(buffer, info->ecc_step_size + 4);
