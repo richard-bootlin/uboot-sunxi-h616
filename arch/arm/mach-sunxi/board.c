@@ -282,6 +282,7 @@ static int sunxi_get_boot_source(void)
 	struct boot_file_head *egon_head = (void *)SPL_ADDR;
 	struct toc0_main_info *toc0_info = (void *)SPL_ADDR;
 
+	return SUNXI_BOOTED_FROM_NAND;
 	/*
 	 * On the ARMv5 SoCs, the SPL header in SRAM is overwritten by the
 	 * exception vectors in U-Boot proper, so we won't find any
